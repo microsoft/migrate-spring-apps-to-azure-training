@@ -1,0 +1,33 @@
+version: '2.1'
+services:
+  auth-mongodb:
+    env_file: 
+      - .env
+    build: mongodb
+    ports:
+      - 25000:27017
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    healthcheck:
+      test: 
+        - CMD
+        - > 
+          echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  auth-service:
+    depends_on: 
+      - auth-mongodb
+    env_file: 
+      - .env
+    build: auth-service
+    ports:
+      - 5000:5000
+    restart: always
+
+

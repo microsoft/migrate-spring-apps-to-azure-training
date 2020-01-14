@@ -1,6 +1,6 @@
 # 00 - Setup your environment
 
-__This guide is part of the [Azure Spring Cloud training](../README.md)__
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
 
 Setting up all the necessary prerequisites in order to complete the lab in time.
 
@@ -17,6 +17,7 @@ This training lab requires the following to be installed on your machine:
 * A text editor or an IDE. If you do not already have an IDE for Java development, we recommend using [Visual Studio Code](https://code.visualstudio.com/) with the [Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack).
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * [MySQL CLI](https://dev.mysql.com/downloads/)
+* The Azure Spring Cloud CLI extension  (install via `az extension add --name spring-cloud`).
 
 The environment variable `JAVA_HOME` should be set to the path of `javac` in the JDK installation.
 
@@ -34,6 +35,7 @@ Then, start Visual Studio Code and ensure the [Remote - Containers](https://mark
 If you haven't pulled down the docker image in advance, proceed to [Creating Azure Resources](#creating-azure-resources) while you wait for it to download.
 
 **Note**: The Docker repository credential provided is read-only. You will not be able to push any modifications you make to the docker image.
+
 
 ## Creating Azure Resources
 

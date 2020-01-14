@@ -36,6 +36,8 @@ RUN apt-get install ca-certificates curl apt-transport-https lsb-release gnupg -
     && apt-get install azure-cli -y \
     && apt autoremove -y
 
+RUN az extension add --name spring-cloud -y
+
 # Install MySQL CLI
 RUN apt-get install mysql-client -y
 

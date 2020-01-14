@@ -38,8 +38,13 @@ RUN apt-get install ca-certificates curl apt-transport-https lsb-release gnupg -
 
 RUN az extension add --name spring-cloud -y
 
+RUN az extension add --name db-up -y 
+
 # Install MySQL CLI
 RUN apt-get install mysql-client -y
+
+# Install PostgreSQL CLI
+RUN apt-get install postgresql-client -y
 
 ENV JAVA_HOME /usr/lib/jvm/zulu-8-azure-amd64
 ENV M2_HOME /m2

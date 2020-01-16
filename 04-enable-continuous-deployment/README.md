@@ -1,6 +1,6 @@
 # Enable Continuous Deployment
 
-A key virtue of Microservices is the ability to continuously and independently test and deploy the changes to each one. In this section, we will set up pipelines to build and deploy the Microservices we migrated in Section 2.
+A key virtue of Microservices is the ability to continuously and independently test and deploy the changes to each one. In this section, we will set up pipelines to build and deploy one of the Microservices we migrated in Section 2.
 
 ## Create an Azure DevOps Project
 
@@ -28,6 +28,8 @@ Click "Save and Queue". The build should now run and complete successfully.
 
 ## Create a Release pipeline for Auth Service
 
+__❗*Note:* These instructions will change when dedicated Azure Spring Cloud tasks become available.__
+
 Under "Pipelines", click on "Releases" and then on "New Pipeline".
 
 Click on "Empty Job" in the "Select a Template" pane.
@@ -44,6 +46,7 @@ Click the "+" sign next to "Agent job" and enter "Azure CLI" in the search box. 
 
 Click on the new Azure CLI tasks and make the following modifications:
 
+- Set the Display name to "Deploy via Azure CLI"
 - Under "Azure Subscription" select the subscription or the service connection that has access to the Azure Spring Cloud instance. If an "Authorize" button appears, click it.
 - Under "Script Location", select "Inline Script"
 - in the Inline Script box, paste the following:
@@ -53,10 +56,21 @@ az extension add -y --name spring-cloud
 az spring-cloud app deploy --resource-group $(resource_group) --service $(spring_cloud_service) --name auth-service --jar-path $(System.DefaultWorkingDirectory)/_auth-service-build/drop/auth-service/target/auth-service-1.0-SNAPSHOT.jar
 ```
 
-Click "Save". 
+- Finally, click on "..." button next to the Arguments box, and create two arguments:
+
+|name|value|
+|--|--|
+|spring_cloud_service|< Name of the Azure Spring Cloud Instance >|
+|resource_group|< Name of the resource group >
+
+The pipeline is now complete.
 
 ![CLI task definition](media/06-cli-task-definition.png)
+
+Save it, and click "Create release" to deploy the build of the Auth service that was completed in the previous section.
 
 ## Optimizations
 
 1. To make builds faster and more reliable, [Azure Artifacts Feeds can be configured](https://docs.microsoft.com/en-us/azure/devops/artifacts/maven/upstream-sources?view=azure-devops) to cache 3rd party dependencies instead of fetching them from Maven Central with every build.
+
+1. The Deployment task we implemented with Azure CLI can be reused by adding parametrizing additional data, such as the application name. Then, right-click on the task and click "Create Task Group". This will prevent the duplication of the script across multiple microservice pipelines.

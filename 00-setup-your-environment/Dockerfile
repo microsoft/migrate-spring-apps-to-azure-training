@@ -29,6 +29,4 @@ RUN apt-get install mysql-client -y
 # Install PostgreSQL CLI
 RUN apt-get install postgresql-client -y
 
-ENV M2_HOME /m2
-
 ENTRYPOINT [ "bash", "-c", "tail -f /dev/null" ]

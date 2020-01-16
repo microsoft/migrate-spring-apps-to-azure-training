@@ -28,6 +28,34 @@ Click "Save and Queue". The build should now run and complete successfully.
 
 ## Create a Release pipeline for Auth Service
 
+Under "Pipelines", click on "Releases" and then on "New Pipeline".
+
+Click on "Empty Job" in the "Select a Template" pane.
+
+Under "Artifacts", click "Add an Artifact".  From the "Source" dropdown, select `auth-service-build`, which we created in the previous section. Then click Add.
+
+![Adding an artifact](media/04-add-an-artifact.png)
+
+Click on "Stage 1" in the "Stage" box. Change the Stage name to "Deploy to Azure Spring Cloud".  
+
+Click the "+" sign next to "Agent job" and enter "Azure CLI" in the search box. Then, mouse over "Azure CLI" in the results and click the "Add" button.
+
+![Azure CLI - Adding the task](media/05-azure-cli-find-task.png)
+
+Click on the new Azure CLI tasks and make the following modifications:
+
+- Under "Azure Subscription" select the subscription or the service connection that has access to the Azure Spring Cloud instance. If an "Authorize" button appears, click it.
+- Under "Script Location", select "Inline Script"
+- in the Inline Script box, paste the following:
+
+```bash
+az extension add -y --name spring-cloud
+az spring-cloud app deploy --resource-group $(resource_group) --service $(spring_cloud_service) --name auth-service --jar-path $(System.DefaultWorkingDirectory)/_auth-service-build/drop/auth-service/target/auth-service-1.0-SNAPSHOT.jar
+```
+
+Click "Save". 
+
+![CLI task definition](media/06-cli-task-definition.png)
 
 ## Optimizations
 

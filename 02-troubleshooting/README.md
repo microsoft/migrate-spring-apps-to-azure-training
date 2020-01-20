@@ -1,10 +1,10 @@
-# Enable Observability
+# Troubleshooting
 
 Having migrated the application code to Azure Spring Cloud, we must now make the application easy to operate and troubleshoot.
 
 ## Configure Distributed Tracing
 
-Distributed tracing allows you to observe interaction among microservices and diagnose issues. We will see this feature in action in Section 9, but because its configuration requires some time to be applied, let's enable it now:
+Distributed tracing allows you to observe interaction among microservices and diagnose issues. We will see this feature in action in Section 5, but because its configuration requires some time to be applied, let's enable it now:
 
 - Go to the [the Azure portal](https://portal.azure.com/).
 - Go to the Azure Spring Cloud instance and click on "Distributed Tracing" (under Monitoring).
@@ -19,17 +19,17 @@ There are actually three ways to access your application's logs: [Azure Storage]
 
 [Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-portal/) is part of [Azure Monitor](https://azure.microsoft.com/en-us/services/monitor/), which is well-integrated into Azure Spring Cloud, and which we will also use for metrics monitoring.
 
-Having completed the setup in Section 00, you should have a Log Analytics workspace named `sclab-la-<unique string>`. We must now configure our Azure Spring Cloud cluster instance to send its data to this workspace.
+Having completed the setup in Section 00, you should have a Log Analytics workspace named `sclab-la-<unique string>`. We must now configure our Azure Spring Cloud  instance to send its data to this workspace.
 
-- Go to the "Overview" page of your Azure Spring Cloud cluster, and select "Diagnostic settings" in the "Monitoring" section of the navigation pane.
-- Click on "Add diagnostic setting" and configure your cluster to send all its logs to the Log analytics workspace that we just created.
+- Go to the "Overview" page of your Azure Spring Cloud instance, and select "Diagnostic settings" in the "Monitoring" section of the navigation pane.
+- Click on "Add diagnostic setting" and configure your instance to send all its logs to the Log analytics workspace that we just created.
 - Fill in the values as shown here and click "Save".
 
 ![Send logs to the log analytics workspace](media/01-send-logs-to-log-analytics-workspace.png)
 
 ## Query application logs
 
-Logs are now available in the "Logs" link in the "Monitoring" section in the navigation pane for your Azure Spring Cloud cluster.  Click on "Logs". This is a shortcut to the Log Analytics workspace that was created earlier. If a tutorial appears, feel free to skip it for now.
+Logs are now available in the "Logs" link in the "Monitoring" section in the navigation pane for your Azure Spring Cloud instance.  Click on "Logs". This is a shortcut to the Log Analytics workspace that was created earlier. If a tutorial appears, feel free to skip it for now.
 
 This workspace allows to do queries on the aggregated logs, the most common one being to get the latest log from a specific application:
 
@@ -44,9 +44,3 @@ AppPlatformLogsforSpring
 ```
 
 ![Query logs](media/02-logs-query.png)
-
-## View distributed trace
-
-Navigate to the Gateway URL to view the application UI. Create a new account and play around with some application features to generate some trace data.
-
-In the "Distributed tracing" menu in Azure Portal, you should now have access to a full application map, as well as a search engine that allows to find performance bottlenecks.

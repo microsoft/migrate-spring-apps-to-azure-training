@@ -2,8 +2,15 @@ spring:
   application:
     name: notification-service
   cloud:
+      config:
+        uri: ${CONFIG_SERVER_URI}
+
+---
+
+spring:
+  profiles: development
+  cloud:
     config:
-      uri: http://config:8888
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user

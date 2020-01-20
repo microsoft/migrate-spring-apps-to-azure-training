@@ -3,7 +3,14 @@ spring:
     name: monitoring
   cloud:
     config:
-      uri: http://config:8888
+      uri: ${CONFIG_SERVER_URI}
+
+---
+
+spring:
+  profiles: development
+  cloud:
+    config:
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user

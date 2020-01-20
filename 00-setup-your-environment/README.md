@@ -43,7 +43,7 @@ az login # Log into your Azure account if necessary
 
 az group create -g $RESOURCE_GROUP_NAME --location westus2 # Create a new resource group for this lab
 
-az group deployment create -g $RESOURCE_GROUP_NAME --template-file azuredeploy.json --parameters 'mysql_admin_password=super$ecr3t' # Substitute something else for the password parameter
+az group deployment create -g $RESOURCE_GROUP_NAME --template-file azuredeploy.json --parameters 'password=super$ecr3t' # Substitute something else for the password parameter
 ```
 
 The resource provisioning will take some time. Once you have completed all other steps on this page, proceed to the next section.

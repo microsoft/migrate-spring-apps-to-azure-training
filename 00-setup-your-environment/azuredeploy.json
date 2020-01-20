@@ -2,9 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location" : {
-            "type" : "string",
-            "defaultValue" : "[resourceGroup().location]"
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
         },
         "redis_name": {
             "defaultValue": "[concat('sclabr-', uniqueString(resourceGroup().id))]",
@@ -21,17 +21,38 @@
         "app_insights_workspace_name": {
             "defaultValue": "[concat('sclab-ai-', uniqueString(resourceGroup().id))]",
             "type": "string"
-        }, 
+        },
         "log_analytics_workspace_name": {
             "defaultValue": "[concat('sclab-la-', uniqueString(resourceGroup().id))]",
             "type": "string"
-        }, 
-        "mysql_admin_password": {
-            "type" :"securestring",
-            "metadata" :{
-                "description" : "The administrator password for the MySQL instance"
+        },
+        "password": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The password for anything that requires a password"
             }
+        },
+        "rabbitContainerName": {
+            "type": "string",
+            "defaultValue": "[concat('sclabq-', uniqueString(resourceGroup().id))]"
         }
+
+    },
+    "variables": {
+        "rabbitPorts": [
+            {
+                "port": "15672",
+                "protocol": "TCP"
+            },
+            {
+                "port": "5672",
+                "protocol": "TCP"
+            },
+            {
+                "port": "5671",
+                "protocol": "TCP"
+            }
+        ]
     },
     "resources": [
         {
@@ -63,9 +84,9 @@
                 "capacity": 1
             },
             "properties": {
-                "administratorLogin" : "sqlAdmin",
-                "administratorLoginPassword" : "[parameters('mysql_admin_password')]",
-                "createMode" : "Default",
+                "administratorLogin": "sqlAdmin",
+                "administratorLoginPassword": "[parameters('password')]",
+                "createMode": "Default",
                 "storageProfile": {
                     "storageMB": 5120,
                     "backupRetentionDays": 7,
@@ -147,7 +168,7 @@
                     "id": "azure-spring-cloud-cosmosdb"
                 },
                 "options": {
-                    "throughput" : "400"
+                    "throughput": "400"
                 }
             }
         },
@@ -189,6 +210,48 @@
                 },
                 "options": {
                 }
+            }
+        },
+        {
+            "location": "[parameters('location')]",
+            "name": "[parameters('rabbitContainerName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2018-10-01",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('rabbitContainerName')]",
+                        "properties": {
+                            "image": "rabbitmq:3.8",
+                            "resources": {
+                                "requests": {
+                                    "cpu": "1",
+                                    "memoryInGB": "1.0"
+                                }
+                            },
+                            "ports": "[variables('rabbitPorts')]",
+                            "environmentVariables":[
+                                {
+                                    "name": "RABBITMQ_DEFAULT_USER",
+                                    "value": "default"
+                                },
+                                {
+                                    "name": "RABBITMQ_DEFAULT_PASS",
+                                    "value": "[parameters('password')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "restartPolicy": "Always",
+                "osType": "Linux",
+                "ipAddress": {
+                    "type": "Public",
+                    "ports": "[variables('rabbitPorts')]",
+                    "dnsNameLabel": "[parameters('rabbitContainerName')]"
+                }
+            },
+            "tags": {
             }
         }
     ]

@@ -110,6 +110,16 @@ Next, click on "Releases". You should see that a new release has been created an
 
 Last, navigate to the PiggyMetrics application in the browser (via the Gateway URL), and create a new user. Use Log Analytics to search for the new output message:
 
+```kql
+AppPlatformLogsforSpring
+| where AppName == 'auth-service' and Log contains "new user" 
+| order by TimeGenerated desc
+| limit 50
+| project TimeGenerated, Log
+```
+
+![Result in log analytics](media/09-result-in-log-analytics.png)
+
 ## Optimizations
 
 1. To make builds faster and more reliable, [Azure Artifacts Feeds can be configured](https://docs.microsoft.com/en-us/azure/devops/artifacts/maven/upstream-sources?view=azure-devops) to cache 3rd party dependencies instead of fetching them from Maven Central with every build.

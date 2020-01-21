@@ -18,11 +18,21 @@ Select the repository you created in the previous step as the source, and on the
 
 ![Select the Maven build template](media/02-select-maven-template.png)
 
-The build pipeline will be created. Click on the "Pipeline" header at the top.
+The build pipeline will be created. 
 
-Change the pipeline name to "auth-service-build". Under parameters, change "Maven POM file" to `auth-service/pom.xml`
+Click on the "Pipeline" header at the top. Change the pipeline name to "auth-service-build". Under parameters, change "Maven POM file" to `auth-service/pom.xml`
 
-![Maven build pipeline - classic UI](media/03-build-pipeline-classic.png)
+![Maven build pipeline - classic UI](media/03-build-pipeline-classic.png).
+
+Click on the first step in the pipeline, "Maven auth-service/pom.xml". In the options textbox, add:
+
+```bash
+-Denv=cloud
+```
+
+This is an environment variable setting to trigger the cloud profile, just as we did when building the application locally.
+
+![Maven build arguments](media/03a-maven-build-arguments.png)
 
 In the "Save and Queue" dropdown, choose "Save". We will test this build later.
 
@@ -30,11 +40,9 @@ In the "Save and Queue" dropdown, choose "Save". We will test this build later.
 
 Above the build pipeline definition, click on "Triggers". Then, check the "Enable continuous integration" box.
 
-![Enable continuous integration](media/03a-enable-continuous-integration.png)
+![Enable continuous integration](media/03b-enable-continuous-integration.png)
 
 ## Create a Release pipeline for Auth Service
-
-__❗*Note:* These instructions will change when dedicated Azure Spring Cloud tasks become available.__
 
 Under "Pipelines", click on "Releases" and then on "New Pipeline".
 

@@ -142,7 +142,9 @@ az spring-cloud app deploy --name gateway \
 
 # Deploy auth-service app
 az spring-cloud app deploy --name auth-service \
-    --jar-path auth-service/target/auth-service.jar
+    --jar-path auth-service/target/auth-service.jar \
+    --env MONGODB_URI="${MONGODB_URI}" \
+        MONGODB_DATABASE=auth-db
 
 # Deploy account-service app
 az spring-cloud app deploy --name account-service \

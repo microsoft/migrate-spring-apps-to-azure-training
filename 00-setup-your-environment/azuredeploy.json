@@ -6,14 +6,6 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
         },
-        "redis_name": {
-            "defaultValue": "[concat('sclabr-', uniqueString(resourceGroup().id))]",
-            "type": "string"
-        },
-        "db_for_mysql_name": {
-            "defaultValue": "[concat('sclabm-', uniqueString(resourceGroup().id))]",
-            "type": "string"
-        },
         "cosmosdb_account_name": {
             "defaultValue": "[concat('sclabc-', uniqueString(resourceGroup().id))]",
             "type": "string"
@@ -56,57 +48,11 @@
     },
     "resources": [
         {
-            "type": "Microsoft.Cache/Redis",
-            "apiVersion": "2018-03-01",
-            "name": "[parameters('redis_name')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "sku": {
-                    "name": "Basic",
-                    "family": "C",
-                    "capacity": 0
-                },
-                "enableNonSslPort": false,
-                "redisConfiguration": {
-                    "maxclients": "256"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DBforMySQL/servers",
-            "apiVersion": "2017-12-01",
-            "name": "[parameters('db_for_mysql_name')]",
-            "location": "[parameters('location')]",
-            "sku": {
-                "name": "B_Gen5_1",
-                "tier": "Basic",
-                "family": "Gen5",
-                "capacity": 1
-            },
-            "properties": {
-                "administratorLogin": "sqlAdmin",
-                "administratorLoginPassword": "[parameters('password')]",
-                "createMode": "Default",
-                "storageProfile": {
-                    "storageMB": 5120,
-                    "backupRetentionDays": 7,
-                    "geoRedundantBackup": "Disabled",
-                    "storageAutoGrow": "Enabled"
-                },
-                "version": "5.7",
-                "sslEnforcement": "Enabled"
-            }
-        },
-        {
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "apiVersion": "2019-08-01",
             "name": "[parameters('cosmosdb_account_name')]",
             "location": "[parameters('location')]",
-            "tags": {
-                "defaultExperience": "Core (SQL)",
-                "hidden-cosmos-mmspecial": ""
-            },
-            "kind": "GlobalDocumentDB",
+            "kind": "MongoDB",
             "properties": {
                 "enableAutomaticFailover": false,
                 "enableMultipleWriteLocations": false,
@@ -123,7 +69,6 @@
                 "locations": [
                     {
                         "locationName": "[parameters('location')]",
-                        "provisioningState": "Succeeded",
                         "failoverPriority": 0,
                         "isZoneRedundant": false
                     }
@@ -132,6 +77,61 @@
                 ]
             }
         },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+            "apiVersion": "2019-12-12",
+            "name": "[concat(parameters('cosmosdb_account_name'), '/account-db')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "account-db"
+                },
+                "options": {
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+            "apiVersion": "2019-12-12",
+            "name": "[concat(parameters('cosmosdb_account_name'), '/auth-db')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "auth-db"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+            "apiVersion": "2019-12-12",
+            "name": "[concat(parameters('cosmosdb_account_name'), '/notification-db')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "notification-db"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+            "apiVersion": "2019-12-12",
+            "name": "[concat(parameters('cosmosdb_account_name'), '/statistics-db')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "statistics-db"
+                }
+            }
+        },
+
         {
             "type": "Microsoft.OperationalInsights/workspaces",
             "apiVersion": "2015-11-01-preview",
@@ -230,7 +230,7 @@
                                 }
                             },
                             "ports": "[variables('rabbitPorts')]",
-                            "environmentVariables":[
+                            "environmentVariables": [
                                 {
                                     "name": "RABBITMQ_DEFAULT_USER",
                                     "value": "default"

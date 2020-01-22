@@ -1,0 +1,13 @@
+trigger:
+- master
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    options: '-Denv=cloud'
+    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false

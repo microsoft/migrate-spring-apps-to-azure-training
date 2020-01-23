@@ -32,4 +32,6 @@ RUN apt-get install postgresql-client -y
 
 ENV MAVEN_CONFIG=
 
+RUN mkdir /lab
+
 ENTRYPOINT [ "bash", "-c", "tail -f /dev/null" ]

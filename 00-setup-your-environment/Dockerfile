@@ -30,4 +30,6 @@ RUN apt-get install mysql-client -y
 # Install PostgreSQL CLI
 RUN apt-get install postgresql-client -y
 
+ENV MAVEN_CONFIG=
+
 ENTRYPOINT [ "bash", "-c", "tail -f /dev/null" ]

@@ -81,14 +81,16 @@ In the previous section, you provisioned an App, to host a single microservice, 
 
 ```bash
 # Create an app for the gateway + UI
-az spring-cloud app create --name gateway --instance-count 1 --is-public true
+az spring-cloud app create --name gateway --instance-count 1 --is-public true &
 
 # Create an app for each of the microservices
-az spring-cloud app create --name account-service --instance-count 1
-az spring-cloud app create --name auth-service --instance-count 1
-az spring-cloud app create --name statistics-service --instance-count 1
-az spring-cloud app create --name notification-service --instance-count 1
+az spring-cloud app create --name account-service --instance-count 1 &
+az spring-cloud app create --name auth-service --instance-count 1 &
+az spring-cloud app create --name statistics-service --instance-count 1 &
+az spring-cloud app create --name notification-service --instance-count 1 &
 ```
+
+While waiting for the creation to complete, you can move on to the next section, "Building the apps". Do not, however, move beyond it until all the commands above have finished executing (you can see the active tasks with the `jobs` command).
 
 ## Building the apps
 
@@ -108,11 +110,11 @@ So in place of MongoDB, we will inject CosmosDB configuration into each of the a
 ```bash
 COSMOS_ACCOUNT_ID=$(az cosmosdb list --query '[].id' -o tsv)
 
-
 az spring-cloud app binding cosmos add --api-type mongo --app account-service -n cosmos --resource-id "${COSMOS_ACCOUNT_ID}" --database-name account-db
 az spring-cloud app binding cosmos add --api-type mongo --app auth-service -n cosmos --resource-id "${COSMOS_ACCOUNT_ID}" --database-name auth-db
 az spring-cloud app binding cosmos add --api-type mongo --app notification-service -n cosmos --resource-id "${COSMOS_ACCOUNT_ID}" --database-name notification-db
 az spring-cloud app binding cosmos add --api-type mongo --app statistics-service -n cosmos --resource-id "${COSMOS_ACCOUNT_ID}" --database-name statistics-db
+
 ```
 
 ## Deploying the apps

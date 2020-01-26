@@ -5,7 +5,8 @@ RUN apt update -y && apt upgrade -y \
     && apt install wget -y \
     && apt install git -y \
     && apt install nano -y \
-    && apt install procps -y
+    && apt install procps -y \
+    && apt install jq -y
 
 # Install Azure CLI
 RUN apt-get install ca-certificates curl apt-transport-https lsb-release gnupg -y  \
@@ -29,8 +30,6 @@ RUN apt-get install mysql-client -y
 
 # Install PostgreSQL CLI
 RUN apt-get install postgresql-client -y
-
-ENV MAVEN_CONFIG=
 
 RUN mkdir /lab
 

@@ -7,7 +7,7 @@ products:
 description: "Migrating Spring Applications to Azure Spring Cloud"
 ---
 
-# Official Microsoft Sample
+# Migrating Spring Applications to Azure Spring Cloud
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -17,7 +17,7 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Give a short description for your sample here. What does it do and why is it important?
+In this workshop, you will migrate a set of Spring microservices to Azure Spring Cloud. In the process,
 
 ## Contents
 

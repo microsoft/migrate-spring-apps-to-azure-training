@@ -8,13 +8,11 @@ We will use this migrated application in the subsequent section to demonstrate t
 
 For expediency, let's create the Azure Spring Cloud instance from Azure CLI.
 
+> 🛑 Modify the command below to include the desired name of the Azure Spring Cloud instance, as well as the resource group and the location used in the previous section. __Azure Spring Cloud instance names must be globally unique.__.
 ```bash
 az spring-cloud create --name ${SPRING_CLOUD_SERVICE} \
-    --resource-group ${RESOURCE_GROUP} \
-    --location ${REGION}
+    --resource-group ${RESOURCE_GROUP_NAME}
 ```
-
-Use the same values for `${RESOURCE_GROUP}` and `${REGION}` that you used when deploying the ARM template in Section 00. Be sure to use your username in the name of your Spring Cloud Service, so as to avoid name contention with other participants. __Azure Spring Cloud instance names must be globally unique.__
 
 ## Configure defaults in your development machine
 
@@ -23,7 +21,7 @@ You can set defaults so that you do not have to repeatedly mention resource grou
 ```bash
 # Configure defaults
 az configure --defaults \
-    group=${RESOURCE_GROUP} \
+    group=${RESOURCE_GROUP_NAME} \
     location=${REGION} \
     spring-cloud=${SPRING_CLOUD_SERVICE}
 ```
@@ -69,11 +67,11 @@ Spring Cloud simplifies configuration management by centralizing configuration i
 
 - Go to the overview page of your Azure Spring Cloud server, and select "Config server" in the menu
 - Configure the repository we previously created:
-  - Add the repository URL. We host a public repository with the configuration for Piggy Metrics at `https://github.com/microsoft/piggymetrics-config.git`. However, a private repository can also be used by populating the Authentication credentials. For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
+  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicing the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
 
   ![Config server setup](media/01-config-server-setup.png)
 
-- Click on "Apply" and wait for the operation to succeeed. Azure Spring Cloud will now create a configuration server to provide configuration to all microservices, with no further effort from you.
+- Click on "Apply" and wait for the operation to succeed. Azure Spring Cloud will now create a configuration server to provide configuration to all microservices, with no further effort from you.
 
 ## Creating the apps
 
@@ -144,9 +142,7 @@ az spring-cloud app deploy --name gateway \
 
 # Deploy auth-service app
 az spring-cloud app deploy --name auth-service \
-    --jar-path auth-service/target/auth-service.jar \
-    --env MONGODB_URI="${MONGODB_URI}" \
-        MONGODB_DATABASE=auth-db
+    --jar-path auth-service/target/auth-service.jar
 
 # Deploy account-service app
 az spring-cloud app deploy --name account-service \
@@ -154,9 +150,7 @@ az spring-cloud app deploy --name account-service \
     --env RABBITMQ_HOST=${RABBITMQ_HOST} \
           RABBITMQ_PORT=${RABBITMQ_PORT} \
           RABBITMQ_USERNAME=${RABBITMQ_USERNAME} \
-          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD} \
-          MONGODB_URI="${MONGODB_URI}" \
-          MONGODB_DATABASE=account-db
+          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
 
 # Deploy statistics-service app
 az spring-cloud app deploy --name statistics-service \
@@ -164,9 +158,7 @@ az spring-cloud app deploy --name statistics-service \
     --env RABBITMQ_HOST=${RABBITMQ_HOST} \
           RABBITMQ_PORT=${RABBITMQ_PORT} \
           RABBITMQ_USERNAME=${RABBITMQ_USERNAME} \
-          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD} \
-          MONGODB_URI="${MONGODB_URI}" \
-          MONGODB_DATABASE=statistics-db
+          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
 
 # Deploy notification-service app
 az spring-cloud app deploy --name notification-service \
@@ -174,9 +166,8 @@ az spring-cloud app deploy --name notification-service \
     --env RABBITMQ_HOST=${RABBITMQ_HOST} \
           RABBITMQ_PORT=${RABBITMQ_PORT} \
           RABBITMQ_USERNAME=${RABBITMQ_USERNAME} \
-          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD} \
-          MONGODB_URI="${MONGODB_URI}" \
-          MONGODB_DATABASE=notification-db
+          RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+
 ```
 
 While waiting for the deployments to complete, this is a good time to navigate into the Azure Spring Cloud instance in Azure Portal. Click on "Apps" to see the status. Eventually, all Apps should have the status `Running`.

@@ -157,62 +157,6 @@
             }
         },
         {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
-            "apiVersion": "2019-08-01",
-            "name": "[concat(parameters('cosmosdb_account_name'), '/azure-spring-cloud-cosmosdb')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "azure-spring-cloud-cosmosdb"
-                },
-                "options": {
-                    "throughput": "400"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-            "apiVersion": "2019-08-01",
-            "name": "[concat(parameters('cosmosdb_account_name'), '/azure-spring-cloud-cosmosdb/City')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('cosmosdb_account_name'), 'azure-spring-cloud-cosmosdb')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmosdb_account_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "City",
-                    "indexingPolicy": {
-                        "indexingMode": "Consistent",
-                        "automatic": true,
-                        "includedPaths": [
-                            {
-                                "path": "/*"
-                            }
-                        ],
-                        "excludedPaths": [
-                            {
-                                "path": "/\"_etag\"/?"
-                            }
-                        ]
-                    },
-                    "partitionKey": {
-                        "paths": [
-                            "/name"
-                        ],
-                        "kind": "Hash"
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
-                    }
-                },
-                "options": {
-                }
-            }
-        },
-        {
             "location": "[parameters('location')]",
             "name": "[parameters('rabbitContainerName')]",
             "type": "Microsoft.ContainerInstance/containerGroups",

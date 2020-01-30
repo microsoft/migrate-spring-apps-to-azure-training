@@ -14,11 +14,11 @@ Let's first create a build pipeline for `auth-service` using the classic UI, as 
 
 In Azure DevOps, navigate to "Builds" under "Pipelines", and click "New Pipeline". Click on the "Use the classic editor" link at the bottom.
 
-Select the repository you created in the previous step as the source, and on the "Select a Tempalte" pane, click "Maven".
+Select the repository you created in the previous step as the source, and on the "Select a Template" pane, click "Maven".
 
 ![Select the Maven build template](media/02-select-maven-template.png)
 
-The build pipeline will be created. 
+The build pipeline will be created.
 
 Click on the "Pipeline" header at the top. Change the pipeline name to "auth-service-build". Under parameters, change "Maven POM file" to `auth-service/pom.xml`
 
@@ -54,7 +54,7 @@ Under "Artifacts", click "Add an Artifact".  From the "Source" dropdown, select 
 
 ![Adding an artifact](media/04-add-an-artifact.png)
 
-Click on the lightning bolt icon on the newly-added build artifact. On the "Continuous deployment trigger" pannel, toggle the first switch to enable automatic deployment whenever a build completes.
+Click on the lightning bolt icon on the newly-added build artifact. On the "Continuous deployment trigger" panel, toggle the first switch to enable automatic deployment whenever a build completes.
 
 ![Continuous deployment trigger](media/05-continuous-deployment-trigger.png)
 

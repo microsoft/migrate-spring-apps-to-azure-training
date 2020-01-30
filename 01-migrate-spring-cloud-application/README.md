@@ -103,7 +103,19 @@ While waiting for the creation to complete, you can move on to the next section,
 
 ## Building the apps
 
-Run
+### Get PiggyMetrics
+
+Now that we have provisioned and configured our Azure Spring Cloud instance and the apps on it, we need some code to deploy. Run the following in your container:
+
+```bash
+git clone https://github.com/microsoft/migrate-spring-apps-to-azure-training 
+mv migrate-spring-apps-to-azure-training/01-migrate-spring-cloud-application/piggymetrics .
+rm -fR migrate-spring-apps-to-azure-training
+```
+
+### Build PiggyMetrics
+
+Next, we need to build the microservices comprising the PiggyMetrics application into deployable JAR files. Run:
 
 ```bash
 cd piggymetrics

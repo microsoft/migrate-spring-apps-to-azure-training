@@ -1,4 +1,4 @@
-# Migrate a Spring Cloud App
+# Migrate a Spring Cloud Application
 
 In this section, we're going to take a pre-existing Spring Cloud application, consisting of four microservices, and migrate it to Azure Spring Cloud in its entirety.
 
@@ -10,12 +10,12 @@ For expediency, let's create the Azure Spring Cloud instance from Azure CLI.
 
 First, you will need to come up with a name for your Azure Spring Cloud instance.
 
--__The name must be unique among all Azure Spring Cloud Instances across all of Azure__. Consider using your username as part of the name.
+- __The name must be unique among all Azure Spring Cloud Instances across all of Azure__. Consider using your username as part of the name.
 - The name can contain only lowercase letters, numbers and hyphens. The first character must be a letter. The last character must be a letter or number. The value must be between 4 and 32 characters long.
 
 To save minimize, set the variable `RESOURCE_GROUP_NAME` to the name of the resource group created in the previous section. Set the variable `SPRING_CLOUD_NAME` to the name of the Azure Spring Cloud instance to be created:
 
->🛑Be sure to substitute your own values for `RESOURCE_GROUP_NAME` and `SPRING_CLOUD_NAME` as described above.
+>🛑Be sure to substitute your own values for `RESOURCE_GROUP_NAME` and `SPRING_CLOUD_NAME` as described above. __`SPRING_CLOUD_NAME` must be globally unique.__
 
 ```bash
 RESOURCE_GROUP_NAME=spring-cloud-lab
@@ -78,7 +78,7 @@ Spring Cloud simplifies configuration management by centralizing configuration i
 
 - Go to the overview page of your Azure Spring Cloud server, and select "Config server" in the menu
 - Configure the repository we previously created:
-  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicing the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
+  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicking the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
 
   ![Config server setup](media/01-config-server-setup.png)
 
@@ -148,11 +148,6 @@ RABBITMQ_PORT=5672
 RABBITMQ_USERNAME=default
 RABBITMQ_PASSWORD='super$ecr3t' #password provided when deploying the ARM template
 
-# MongoDB Connection String to CosmosDB
-MONGODB_URI=$(az cosmosdb keys list \
-    -n $(az cosmosdb list --query '[0].name' -o tsv) \
-    --type connection-strings -o tsv \
-    --query 'connectionStrings[0].connectionString')
 ```
 
 Deploy the webapps using the `az spring cloud deploy` command.
@@ -202,3 +197,9 @@ Once all apps have the status `Running`, click on the Gateway app. In the PiggyM
 You should see the front page of the PiggyMetrics app. Click "Create new account", and once you've created an account, play around with the application for a couple of minutes to generate some log and traffic data. Then, proceed to the next section.
 
 ![PiggyMetrics front page](media/03-piggymetrics-front-page.png)
+
+---
+
+⬅️ Previous section: [00 - Set Up Your Environment](../00-setup-your-environment/README.md)
+
+➡️ Next section: [02 - Troubleshooting](../02-troubleshooting/README.md)

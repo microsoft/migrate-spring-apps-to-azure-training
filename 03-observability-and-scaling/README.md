@@ -11,7 +11,9 @@ Shortly after creating the Azure Spring Cloud instance in Section 1, we enabled 
 
 ![Application map](media/01-application-map.png)
 
-You can now see a schematic of the interactions among the deployed microservices. 
+You can now see a schematic of the interactions among the deployed microservices.
+
+> 💡 It can take ~2 minutes for interactions with microservices to be recorded by App Insights and reflected in Distributed Tracing.
 
 Clicking on a node, you can see a pane with a history of the slowest requests sent to that microservice:
 
@@ -39,3 +41,9 @@ Here, we can scale the microservice up by increasing its allotment of CPU and RA
 Return to the "Apps" page under the Azure Spring Cloud Instance. You should now see the Instance count increased to 3. The status of the service may change to "Upgrading" once the new replicas come up, but should return to running, once all the instances are available.
 
 ![instance-count-after-scaling](media/05-instance-count-after-scaling.png)
+
+---
+
+⬅️ Previous section: [02 - Troubleshooting](../02-troubleshooting/README.md)
+
+➡️ Next section: [04 - Enable Continuous Deployment](../04-enable-continuous-deployment/README.md)

@@ -78,7 +78,7 @@ Spring Cloud simplifies configuration management by centralizing configuration i
 
 - Go to the overview page of your Azure Spring Cloud server, and select "Config server" in the menu
 - Configure the repository we previously created:
-  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicing the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
+  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicking the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
 
   ![Config server setup](media/01-config-server-setup.png)
 
@@ -148,11 +148,6 @@ RABBITMQ_PORT=5672
 RABBITMQ_USERNAME=default
 RABBITMQ_PASSWORD='super$ecr3t' #password provided when deploying the ARM template
 
-# MongoDB Connection String to CosmosDB
-MONGODB_URI=$(az cosmosdb keys list \
-    -n $(az cosmosdb list --query '[0].name' -o tsv) \
-    --type connection-strings -o tsv \
-    --query 'connectionStrings[0].connectionString')
 ```
 
 Deploy the webapps using the `az spring cloud deploy` command.

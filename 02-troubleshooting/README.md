@@ -29,3 +29,9 @@ AppPlatformLogsforSpring
 ```
 
 ![Query logs](media/01-logs-query.png)
+
+---
+
+⬅️ Previous section: [01 - Migrate a Spring Cloud Application](../00-setup-your-environment/README.md)
+
+➡️ Next section: [03 - Observability and Scaling](../03-observability-and-scaling/README.md)

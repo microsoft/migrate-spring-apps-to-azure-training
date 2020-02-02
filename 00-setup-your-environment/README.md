@@ -95,3 +95,7 @@ This training lab requires the following to be installed on your machine:
 The environment variable `JAVA_HOME` should be set to the path of `javac` in the JDK installation.
 
 You can then use Visual Studio Code or an IDE of your choice.
+
+---
+
+➡️ Next Section: [Migrate a Spring Cloud Application](../01-migrate-spring-cloud-application/README.md)

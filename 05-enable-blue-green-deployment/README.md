@@ -135,3 +135,7 @@ Watch the second stage of the pipeline run. Once it completes, navigate to the p
 ![Change deployed to production](media/08-change-deployed-to-production.png)
 
 __Note:__ the prior deployment does not automatically get deleted. It's still available (and still consuming resources), should you need to revert at a moment's notice. We may wish to subsequently add another delayed stage to our pipeline that deletes the old deployment after some delay.
+
+---
+
+⬅️ Previous section: [04 - Enable Continuous Deployment](../04-enable-continuous-deployment/README.md)

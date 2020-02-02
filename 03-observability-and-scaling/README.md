@@ -41,3 +41,9 @@ Here, we can scale the microservice up by increasing its allotment of CPU and RA
 Return to the "Apps" page under the Azure Spring Cloud Instance. You should now see the Instance count increased to 3. The status of the service may change to "Upgrading" once the new replicas come up, but should return to running, once all the instances are available.
 
 ![instance-count-after-scaling](media/05-instance-count-after-scaling.png)
+
+---
+
+⬅️ Previous section: [02 - Troubleshooting](../02-troubleshooting/README.md)
+
+➡️ Next section: [04 - Enable Continuous Deployment](../04-enable-continuous-deployment/README.md)

@@ -125,3 +125,9 @@ AppPlatformLogsforSpring
 1. To make builds faster and more reliable, [Azure Artifacts Feeds can be configured](https://docs.microsoft.com/en-us/azure/devops/artifacts/maven/upstream-sources?view=azure-devops) to cache 3rd party dependencies instead of fetching them from Maven Central with every build.
 
 1. The Deployment task we implemented with Azure CLI can be reused by adding parametrizing some of the command arguments, such as the resource group name, the Azure Spring Cloud instance name, and the Jar file name. Then, right-click on the task and click "Create Task Group". This will prevent the duplication of the script across multiple microservice pipelines.
+
+---
+
+⬅️ Previous section: [03 - Observability and Scaling](../03-observability-and-scaling/README.md)
+
+➡️ Next section: [05 - Enable Blue-Green Deployment](../05-enable-blue-green-deployment/README.md)

@@ -11,7 +11,9 @@ Shortly after creating the Azure Spring Cloud instance in Section 1, we enabled 
 
 ![Application map](media/01-application-map.png)
 
-You can now see a schematic of the interactions among the deployed microservices. 
+You can now see a schematic of the interactions among the deployed microservices.
+
+> 💡 It can take ~2 minutes for interactions with microservices to be recorded by App Insights and reflected in Distributed Tracing.
 
 Clicking on a node, you can see a pane with a history of the slowest requests sent to that microservice:
 

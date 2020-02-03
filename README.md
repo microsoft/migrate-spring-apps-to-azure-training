@@ -1,5 +1,5 @@
 ---
-page_type: training
+page_type: tutorial
 languages:
 - java
 products:
@@ -17,36 +17,51 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-In this workshop, you will migrate a set of Spring microservices to Azure Spring Cloud. In the process,
+In this workshop, you will migrate a set of Spring microservices to Azure Spring Cloud. We will be using a modified version of the [Piggy Metrics](https://github.com/sqshq/PiggyMetrics), licensed under MIT license.
+
+## What you should expect
+
+This is not the official documentation but an opinionated training.
+
+It is a hands-on training, and it will use the command line extensively. The idea is to get coding very quickly and play with the platform, from a simple demo to far more complex examples.
+
+After completing all the guides, you should feel confident migrating real-world Spring microservices to Azure Spring Cloud, and implementing a comprehensive and modern DevOps process.
+
+## Symbols
+
+>🛑 -  __Manual Modification Required__. When this symbol appears in front of one or more commands, you will need to modify the commands as indicated prior to running them.
+
+>🚧 - __Preview-specific__. This symbol indicates steps that are only necessary while Azure Spring Cloud is in preview.
+
+>💡 - __Frustration Avoidance Tip__. These will help you avoid potential pitfalls.
 
 ## Contents
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
+### [00 - Prerequisites and Setup](00-setup-your-environment/README.md)
 
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+Prerequisites and environment setup.
 
-## Prerequisites
+### [01 - Migrate a Spring Cloud Application](01-migrate-spring-cloud-application/README.md)
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+Provisioning an Azure Spring Cloud instance, configuring diagnostic settings and distributed tracing, building and deploying the application.
 
-## Setup
+### [02 - Troubleshooting](02-troubleshooting/README.md)
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
+Using Azure Log Analytics to understand what went wrong.
 
-## Running the sample
+### [03 - Observability and Scaling](03-observability-and-scaling/README.md)
 
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+Using Distributed Tracing to understand microservice interactions, scaling out to meet demand.
 
-## Key concepts
+### [04 - Enable Continuous Deployment](04-enable-continuous-deployment/README.md)
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+Creating automated build and release pipelines with Azure DevOps.
+
+### [05 - Enable Blue-Green Deployment](05-enable-blue-green-deployment/README.md)
+
+Deploying microservices for testing in production without impacting the user experience.
+
+### [Conclusion](99-conclusion/README.md)
 
 ## Contributing
 

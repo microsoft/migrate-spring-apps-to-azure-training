@@ -1,5 +1,11 @@
 # Enable Continuous Deployment
 
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Creating automated build and release pipelines with Azure DevOps.
+
+---
+
 A key virtue of Microservices is the ability to continuously and independently test and deploy the changes to each one. In this section, we will set up pipelines to build and deploy one of the Microservices we migrated in Section 2.
 
 ## Create an Azure DevOps Project
@@ -64,7 +70,7 @@ __Note:__ Instructions marked with 🚧 are necessary only during the preview.
 
 Click on "Stage 1" in the "Stage" box. Change the Stage name to "Deploy to Azure Spring Cloud".  
 
-🚧 Cick on "Agent Job" and select "windows-2019" under Agent Specification.
+🚧 Click on "Agent Job" and select "windows-2019" under Agent Specification.
 
 Click the "+" sign next to "Agent job" and enter "Azure CLI" in the search box. Then, mouse over "Azure CLI" in the results and click the "Add" button.
 

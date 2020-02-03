@@ -1,4 +1,4 @@
-# 04 - Enable Blue-Green Deployment
+# Enable Blue-Green Deployment
 
 __This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
 

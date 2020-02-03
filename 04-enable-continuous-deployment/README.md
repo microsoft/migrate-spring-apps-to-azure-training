@@ -1,5 +1,11 @@
 # Enable Continuous Deployment
 
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Creating automated build and release pipelines with Azure DevOps.
+
+---
+
 A key virtue of Microservices is the ability to continuously and independently test and deploy the changes to each one. In this section, we will set up pipelines to build and deploy one of the Microservices we migrated in Section 2.
 
 ## Create an Azure DevOps Project

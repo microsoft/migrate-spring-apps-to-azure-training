@@ -1,5 +1,11 @@
 # Observability and Scaling
 
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Using Distributed Tracing to understand microservice interactions, scaling out to meet demand.
+
+---
+
 After all the migrations, deployment, and automated deployment pipelines, all our microservices are up and running. But suddenly, something starts misbehaving. Intermittent errors start appearing when some action is taken, but where are they caused? Let's investigate.
 
 ## View distributed trace

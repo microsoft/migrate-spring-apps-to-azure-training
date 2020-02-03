@@ -1,5 +1,11 @@
 # Troubleshooting
 
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Using Azure Log Analytics to understand what went wrong.
+
+---
+
 We have successfully migrated the application code to Azure Spring Cloud, but what happens when an application misbehaves?
 
 ## Query application logs

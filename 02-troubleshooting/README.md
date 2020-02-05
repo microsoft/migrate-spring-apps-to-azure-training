@@ -8,7 +8,21 @@ Using Azure Log Analytics to understand what went wrong.
 
 We have successfully migrated the application code to Azure Spring Cloud, but what happens when an application misbehaves?
 
+## Streaming the logs
+
+When you run an application on your machine, you can see its output in the console. When you run a microservice on Azure Spring Cloud, you can also see its console output through Azure CLI:
+
+```bash
+az spring-cloud app log tail --name account-service -f
+```
+
+You should see the console output of `account-service` scroll by on your terminal:
+
+![Console output](media/02-console-output.png)
+
 ## Query application logs
+
+Streaming the console output as we just did may be helpful in understanding the immediate state of a microservice. However, sometimes it's necessary to look further into the past or to look for something specific. This is easily done with Log Analytics.
 
 In the Azure Portal, navigate to the Azure Spring Cloud instance, and click "Logs" in the "Monitoring" section of the sidebar. This is a shortcut to the Log Analytics workspace that was created earlier. If a tutorial appears, feel free to skip it for now.
 

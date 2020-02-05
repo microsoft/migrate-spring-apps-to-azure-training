@@ -157,7 +157,7 @@ az spring-cloud app binding cosmos add --api-type mongo --app statistics-service
 
 ## Deploying the apps
 
-Some of the migrated applications require an RabbitMQ broker. We have deployed one in an Azure Containber Instance in the ARM template in Section 0. We need to obtain set some environment variables and populate them in the deployed microservices:
+Some of the migrated applications require an RabbitMQ broker. We have deployed one in an Azure Containber Instance in the ARM template in Section 0. We need to set some environment variables and populate them in the deployed microservices:
 
 ```bash
 # Obtain the password from the RABBIT MQ Container Instance. (This should not be possible in a production deployment!)

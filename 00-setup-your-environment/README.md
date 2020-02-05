@@ -34,7 +34,7 @@ A docker image containing all of the pre-requisites is available. You'll need:
 With Docker installed, run (in bash or PowerShell with administrator privileges)
 
 ```bash
-docker run -d azurejavalab.azurecr.io/azurejavalab:2020.01
+docker run -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 #### Preparing Visual Studio Code

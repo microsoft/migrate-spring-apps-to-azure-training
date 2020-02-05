@@ -10,6 +10,17 @@ In this section, we're going to take a pre-existing Spring Cloud application, co
 
 We will use this migrated application in the subsequent section to demonstrate the monitoring, scaling, and tracing capabilities of Azure Spring Cloud.
 
+## Logging into Azure
+
+Ensure your Azure CLI is logged into your Azure subscription.
+
+💡If you intend to use the Docker container as recommended, do this inside the container bash session.
+
+az login # Sign into an azure account
+az account show # See the currently signed-in account.
+
+Ensure your default subscription is the one you intend to use for this lab, and if not - set the subscription via az account set --subscription <SUBSCRIPTION_ID>
+
 ## Creating an Azure Spring Cloud instance
 
 For expediency, let's create the Azure Spring Cloud instance from Azure CLI.
@@ -82,13 +93,13 @@ In an individual Spring Boot microservice, the configuration is typically provid
 
 Spring Cloud simplifies configuration management by centralizing configuration in a single configuration server. Azure Spring Cloud extends this functionality by provisioning and managing a Config Server directly from a git repository containing configuration.
 
-- Go to the overview page of your Azure Spring Cloud server, and select "Config server" in the menu
-- Configure the repository we previously created:
-  - Add the repository URL. To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used. A Private Access Token can then be entered by clicking the link under "Authentication". For the purposes of this lab, let the Authentication type remain `Public`, and click "Apply":
+> 💡 To save time, we host a public repository with the configuration for Piggy Metrics at `https://github.com/yevster/piggymetrics-config.git`. However, in real-world a private repository would be used, with the user name and access token provided to Azure Spring Cloud.
 
-  ![Config server setup](media/01-config-server-setup.png)
+Run the following command to set the configuration repository:
 
-- Click on "Apply" and wait for the operation to succeed. Azure Spring Cloud will now create a configuration server to provide configuration to all microservices, with no further effort from you.
+```bash
+az spring-cloud config-server git set --uri https://github.com/yevster/piggymetrics-config.git -n $SPRING_CLOUD_NAME
+```
 
 ## Creating the apps
 
@@ -149,10 +160,11 @@ az spring-cloud app binding cosmos add --api-type mongo --app statistics-service
 Some of the migrated applications require an RabbitMQ broker. We have deployed one in an Azure Containber Instance in the ARM template in Section 0. We need to obtain set some environment variables and populate them in the deployed microservices:
 
 ```bash
+# Obtain the password from the RABBIT MQ Container Instance. (This should not be possible in a production deployment!)
+RABBITMQ_PASSWORD=$(az container list --query "[].containers[].environmentVariables[?name=='RABBITMQ_DEFAULT_PASS'].value" -o tsv)
 RABBITMQ_HOST=$(az container list --query '[0].ipAddress.fqdn' -o tsv)
 RABBITMQ_PORT=5672
-RABBITMQ_USERNAME=default
-RABBITMQ_PASSWORD='super$ecr3t' #password provided when deploying the ARM template
+RABBITMQ_USERNAME=$(az container list --query "[].containers[].environmentVariables[?name=='RABBITMQ_DEFAULT_USER'].value" -o tsv)
 
 ```
 

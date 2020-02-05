@@ -103,7 +103,7 @@ az spring-cloud config-server git set --uri https://github.com/yevster/piggymetr
 
 ## Creating the apps
 
-In the previous section, you provisioned an App, to host a single microservice, in the Azure Portal. We will now need to provision five apps: four for each of the microservices we plan to migrate, plus one for the gateway, which will host the UI and expose our microservices to the public. For expediency, we will perform these tasks from the Azure CLI:
+We will now need to provision five Azure Spring Cloud Apps to host our microservices: four for each of the microservices we plan to migrate, plus one for the gateway, which will host the UI and expose our microservices to the public. For expediency, we will perform these tasks from the Azure CLI:
 
 ```bash
 # Create an app for the gateway + UI

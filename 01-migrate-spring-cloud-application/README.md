@@ -1,5 +1,11 @@
 # Migrate a Spring Cloud Application
 
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Provisioning an Azure Spring Cloud instance, configuring diagnostic settings and distributed tracing, building and deploying the application.
+
+---
+
 In this section, we're going to take a pre-existing Spring Cloud application, consisting of four microservices, and migrate it to Azure Spring Cloud in its entirety.
 
 We will use this migrated application in the subsequent section to demonstrate the monitoring, scaling, and tracing capabilities of Azure Spring Cloud.

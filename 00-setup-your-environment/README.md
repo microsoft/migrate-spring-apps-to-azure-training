@@ -1,10 +1,17 @@
-# 00 - Setup your environment
+# Setup your environment
+
+__This guide is part of the [Azure Spring Cloud Migration Lab](../README.md)__
+
+Prerequisites and environment setup.
+
+---
 
 ## Creating Azure Resources
 
 To save time, we provide an ARM template for creating all the Azure resources you will need for this lab other than the Azure Spring Cloud instance itself. Use the Deploy to Azure button below.
 
 > 💡 Use the following settings for deploying the Azure Template:
+
 > * Create a new resource group
 > * Set West US2 as the location
 > * Save password you specify in this step, if you do not use the default. You will need it later in the workshop.
